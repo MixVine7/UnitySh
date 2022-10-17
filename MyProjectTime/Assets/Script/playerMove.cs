@@ -5,14 +5,6 @@ using UnityEngine.UI;
 
 public class playerMove : MonoBehaviour
 {
-    [SerializeField] Slider staminaSlider;
-    [SerializeField] float staminaValue;
-    [SerializeField] float minValueStamina;
-    [SerializeField] float maxValueStamina;
-    [SerializeField] float staminaReturn;
-    private Text textStamina;
-
-
     public float speed_Move;
     public float speed_Run;
     public float speed_Current;
@@ -26,13 +18,11 @@ public class playerMove : MonoBehaviour
     void Start()
     {
         player = GetComponent<CharacterController>();
-        textStamina = staminaSlider.transform.GetChild(3).GetComponent<Text>();
     }
 
     void Update()
     {
         Move();
-        Stamina();
     }
 
     void Move()
@@ -59,22 +49,12 @@ public class playerMove : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed_Current = speed_Run;
-            staminaValue -= staminaReturn * Time.deltaTime * 7;
         }
         else
         {
             speed_Current = speed_Move;
-            staminaValue += staminaReturn * Time.deltaTime * 2;
         }
         player.Move(move_Direction * speed_Current * Time.deltaTime);
-    }
-
-    private void Stamina()
-    {
-        if (staminaValue > 100f) staminaValue = 100f;
-        if (staminaValue < 0f) staminaValue = 0f;
-        textStamina.text = staminaSlider.value.ToString();
-        staminaSlider.value = staminaValue;
     }
 
 }
